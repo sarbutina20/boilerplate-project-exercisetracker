@@ -1,3 +1,5 @@
+const {Users } = require("./users.js")
+const {Exercises} = require("./exercises.js")
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -10,7 +12,10 @@ app.get('/', (req, res) => {
 });
 
 
+app.post("/api/users", Users.addUser);
+app.get("/api/users", Users.getUsers); 
 
+app.post("/api/users/:_id/exercises", Exercises.addExercise);
 
 
 const listener = app.listen(process.env.PORT || 3000, () => {
