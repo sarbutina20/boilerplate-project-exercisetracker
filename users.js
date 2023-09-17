@@ -1,12 +1,11 @@
 // I want to implement adding users to MongoDB Atlas database.
 const mongoose = require("mongoose");
-const {User} = require("./modeli.js");
+const { User } = require("./modeli.js");
 
 class Users {
-
   addUser(req, res) {
     const username = req.body.username;
-    const newUser = new User({ username });
+    const newUser = new User({ username, log: [] });
     newUser
       .save()
       .then(() => res.json(newUser))
@@ -19,5 +18,4 @@ class Users {
   }
 }
 
-
-module.exports = {Users: new Users(), User};
+module.exports = { Users: new Users(), User };

@@ -6,25 +6,37 @@ const UserScheme = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  count: {
-    type: Number,
-    default: 0,
-  },
   log: [
     {
-      description: {
+      username: {
         type: String,
-        required: true,
+        required: true
       },
-      duration: {
+      count: {
         type: Number,
-        required: true,
-        min: 1,
+        default: 0,
       },
-      date: {
-        type: Date,
-        default: Date.now,
+      _id : {
+        type: String,
+        required: true
       },
+      log: [
+        {
+          description: {
+            type: String,
+            required: true,
+          },
+          duration: {
+            type: Number,
+            required: true,
+            min: 1,
+          },
+          date: {
+            type: Date,
+            default: Date.now,
+          },
+        }
+      ],
     },
   ],
 });
@@ -32,10 +44,6 @@ const UserScheme = new mongoose.Schema({
 const User = mongoose.model("User", UserScheme);
 
 const ExerciseScheme = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-  },
   description: {
     type: String,
     required: true,
@@ -53,4 +61,40 @@ const ExerciseScheme = new mongoose.Schema({
 
 const Exercise = mongoose.model("Exercise", ExerciseScheme);
 
-module.exports = { User, Exercise };
+const LogsScheme = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true
+  },
+  count: {
+    type: Number,
+    default: 0,
+  },
+  _id : {
+    type: String,
+    required: true
+  },
+  log: [
+    {
+      description: {
+        type: String,
+        required: true,
+      },
+
+      duration: {
+        type: Number,
+        required: true,
+        min: 1,
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    }
+  ],
+});
+
+const Logs = mongoose.model("Logs", LogsScheme);
+
+
+module.exports = { User, Exercise, Logs };
