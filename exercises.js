@@ -5,21 +5,13 @@ class Exercises {
   async addExercise(req, res) {
     const description = req.body.description;
     const duration = Number(req.body.duration);
-    let date = req.body.date;
     const id = req.params._id;
-
-    if (!date) {
+    const receivedDate = req.body.date;
+    let date;
+    if (!receivedDate) {
       date = new Date().toDateString();
     } else {
-      date = new Date(date).toDateString(); 
-    }
-    // My date needs to be in the format: Sun Jan 03 2021
-    
-    if(!date) {
-      date = new Date().toDateString();
-    }
-    else {
-      date = new Date(date).toDateString();
+      date = new Date(receivedDate).toDateString(); 
     }
 
     const user = await User.findById(id);

@@ -62,8 +62,7 @@ const ExerciseScheme = new mongoose.Schema({
     min: 1,
   },
   date: {
-    type: Date,
-    default: Date.now,
+    type: String,
   },
 });
 
@@ -95,8 +94,7 @@ const LogsScheme = new mongoose.Schema({
         min: 1,
       },
       date: {
-        type: Date,
-        default: Date.now,
+        type: String,
       },
     }
   ],
