@@ -5,7 +5,7 @@ class Exercises {
   async addExercise(req, res) {
     const description = req.body.description;
     const duration = Number(req.body.duration);
-    const date = Date.parse(req.body.date);
+    let date = Date.parse(req.body.date);
     const id = req.params._id;
 
     if (!date) {
