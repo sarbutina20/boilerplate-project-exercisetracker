@@ -8,6 +8,10 @@ const UserScheme = new mongoose.Schema({
   },
   log: [
     {
+      _id : {
+        type: String,
+        required: true
+      },
       username: {
         type: String,
         required: true
@@ -15,10 +19,6 @@ const UserScheme = new mongoose.Schema({
       count: {
         type: Number,
         default: 0,
-      },
-      _id : {
-        type: String,
-        required: true
       },
       log: [
         {

@@ -7,9 +7,9 @@ class Users {
     const username = req.body.username;
     const newUser = new User({ username, log: [] });
     const newLog = new Logs({
+      _id: newUser._id,
       username,
       count: 0,
-      _id: newUser._id,
       log: [],
     });
 
