@@ -39,7 +39,6 @@ class Exercises {
         });
         logs.save();
       });
-
       res.json(newExercise);
     } catch (err) {
       res.status(400).json("Error: " + err);
@@ -48,7 +47,6 @@ class Exercises {
 
   async getExercises(req, res) {
     const id = req.params._id;
-    console.log(id);
     Logs.findById(id)
       .then((logs) => res.json(logs))
       .catch((err) => res.status(400).json("Error: " + err));

@@ -44,6 +44,10 @@ const UserScheme = new mongoose.Schema({
 const User = mongoose.model("User", UserScheme);
 
 const ExerciseScheme = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     required: true,
@@ -60,10 +64,6 @@ const ExerciseScheme = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
-  },
-  _id: {
-    type: String,
-    required: true,
   },
 });
 
