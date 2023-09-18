@@ -32,7 +32,6 @@ class Exercises {
 
       Logs.findById(id).then((logs) => {
         logs.count = logs.count + 1;
-        console.log(logs.count)
         logs.log.push({
           description,
           duration,

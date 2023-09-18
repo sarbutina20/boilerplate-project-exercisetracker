@@ -5,7 +5,8 @@ const { User, Logs } = require("./modeli.js");
 class Users {
   addUser(req, res) {
     const username = req.body.username;
-    const newUser = new User({ username, log: [] });
+    const newUser = new User({ username });
+
     const newLog = new Logs({
       _id: newUser._id,
       username,
