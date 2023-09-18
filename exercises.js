@@ -11,7 +11,7 @@ class Exercises {
     if (!receivedDate) {
       date = new Date().toDateString();
     } else {
-      date = new Date(receivedDate).toDateString(); 
+      date = new Date(receivedDate).toDateString();
     }
 
     const user = await User.findById(id);
@@ -49,9 +49,37 @@ class Exercises {
 
   async getExercises(req, res) {
     const id = req.params._id;
-    Logs.findById(id)
-      .then((logs) => res.json(logs))
-      .catch((err) => res.status(400).json("Error: " + err));
+    const { from, to, limit } = req.query;
+
+    const filter = { _id: id };
+    if (from && to) {
+      filter.date = { $gte: new Date(from), $lte: new Date(to) };
+    }
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(400).json("Error: User not found");
+    }
+
+    const logs = await Logs.findOne(filter)
+      .limit(parseInt(limit) || undefined)
+      .exec();
+
+    // Konvertirajte datume u odgovarajući format
+    if (logs && logs.log) {
+      logs.log = logs.log.map((logEntry) => ({
+        description: logEntry.description,
+        duration: logEntry.duration,
+        date: new Date(logEntry.date).toDateString(), // Konvertirajte datum
+      }));
+    }
+
+    res.json({
+      _id: user._id,
+      username: user.username,
+      count: logs ? logs.count : 0,
+      log: logs ? logs.log : [],
+    });
   }
 }
 
