@@ -6,7 +6,7 @@ const UserScheme = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  log: [
+  /*log: [
     {
       _id : {
         type: String,
@@ -38,7 +38,7 @@ const UserScheme = new mongoose.Schema({
         }
       ],
     },
-  ],
+  ]*/
 });
 
 const User = mongoose.model("User", UserScheme);
