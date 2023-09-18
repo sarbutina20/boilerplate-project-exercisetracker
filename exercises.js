@@ -51,34 +51,46 @@ class Exercises {
     const id = req.params._id;
     const { from, to, limit } = req.query;
 
-    const filter = { _id: id };
-    if (from && to) {
-      filter.date = { $gte: new Date(from), $lte: new Date(to) };
-    }
-
     const user = await User.findById(id);
     if (!user) {
       return res.status(400).json("Error: User not found");
     }
 
-    const logs = await Logs.findOne(filter)
-      .limit(parseInt(limit) || undefined)
-      .exec();
+    Logs.findById(id).then((logs) => {
+      if (logs) {
+        logs.log = logs.log.map((logEntry) => ({
+          description: logEntry.description,
+          duration: logEntry.duration,
+          date: new Date(logEntry.date).toDateString(),
+        }));
 
-    // Konvertirajte datume u odgovarajući format
-    if (logs && logs.log) {
-      logs.log = logs.log.map((logEntry) => ({
-        description: logEntry.description,
-        duration: logEntry.duration,
-        date: new Date(logEntry.date).toDateString(), // Konvertirajte datum
-      }));
-    }
+        if (from) {
+          const fromDate = new Date(from);
+          logs.log = logs.log.filter((logEntry) => {
+            const logDate = new Date(logEntry.date);
+            return logDate >= fromDate;
+          });
+        }
 
-    res.json({
-      _id: user._id,
-      username: user.username,
-      count: logs ? logs.count : 0,
-      log: logs ? logs.log : [],
+        if (to) {
+          const toDate = new Date(to);
+          logs.log = logs.log.filter((logEntry) => {
+            const logDate = new Date(logEntry.date);
+            return logDate <= toDate;
+          });
+        }
+
+        if (limit) {
+          logs.log = logs.log.slice(0, limit);
+        }
+
+        res.json({
+          _id: user._id,
+          username: user.username,
+          count: logs.count,
+          log: logs.log,
+        });
+      }
     });
   }
 }
