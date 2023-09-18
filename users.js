@@ -1,11 +1,20 @@
 // I want to implement adding users to MongoDB Atlas database.
 const mongoose = require("mongoose");
-const { User } = require("./modeli.js");
+const { User, Logs } = require("./modeli.js");
 
 class Users {
   addUser(req, res) {
     const username = req.body.username;
     const newUser = new User({ username, log: [] });
+    const newLog = new Logs({
+      username,
+      count: 0,
+      _id: newUser._id,
+      log: [],
+    });
+
+    newLog.save();
+
     newUser
       .save()
       .then(() => res.json(newUser))

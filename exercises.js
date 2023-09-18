@@ -14,28 +14,34 @@ class Exercises {
 
     const user = await User.findById(id);
 
-    if(!user) {
-        res.status(400).json("Error: User not found");
-        return;
+    if (!user) {
+      res.status(400).json("Error: User not found");
+      return;
     }
 
     try {
-      const newLog = new Logs({
+      const newExercise = new Exercise({
         username: user.username,
-        count: 1,
+        description,
+        duration,
+        date,
         _id: id,
-        log: [
-          {
-            description,
-            duration,
-            date,
-          },
-        ],
       });
 
-      newLog.save();
+      newExercise.save();
 
-      res.json(newLog);
+      Logs.findById(id).then((logs) => {
+        logs.count = logs.count + 1;
+        console.log(logs.count)
+        logs.log.push({
+          description,
+          duration,
+          date,
+        });
+        logs.save();
+      });
+
+      res.json(newExercise);
     } catch (err) {
       res.status(400).json("Error: " + err);
     }
@@ -43,7 +49,7 @@ class Exercises {
 
   async getExercises(req, res) {
     const id = req.params._id;
-    console.log(id)
+    console.log(id);
     Logs.findById(id)
       .then((logs) => res.json(logs))
       .catch((err) => res.status(400).json("Error: " + err));
