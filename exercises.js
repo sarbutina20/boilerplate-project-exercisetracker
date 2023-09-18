@@ -9,9 +9,11 @@ class Exercises {
     const id = req.params._id;
 
     if (!date) {
-      date = Date.now().toString();
+      date = new Date().toDateString();
+    } else {
+      date = new Date(date).toDateString(); 
     }
-
+    
     const user = await User.findById(id);
 
     if (!user) {
@@ -25,7 +27,7 @@ class Exercises {
         username: user.username,
         description,
         duration,
-        date
+        date,
       });
 
       newExercise.save();
