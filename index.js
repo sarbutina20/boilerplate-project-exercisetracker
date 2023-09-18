@@ -25,7 +25,8 @@ app.post("/api/users", Users.addUser);
 app.get("/api/users", Users.getUsers); 
 
 app.post("/api/users/:_id/exercises", Exercises.addExercise);
-app.get("/api/users/:_id/exercises", Exercises.getExercises);
+
+app.get("/api/users/:_id/logs", Exercises.getExercises);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Your app is listening on port ' + listener.address().port)

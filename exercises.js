@@ -43,6 +43,7 @@ class Exercises {
 
   async getExercises(req, res) {
     const id = req.params._id;
+    console.log(id)
     Logs.findById(id)
       .then((logs) => res.json(logs))
       .catch((err) => res.status(400).json("Error: " + err));
