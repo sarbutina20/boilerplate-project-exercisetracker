@@ -87,9 +87,9 @@ class Exercises {
         res.json({
           _id: user._id,
           username: user.username,
-          count: logs.log.length,
-          from: from ? new Date(from).toDateString() : undefined,
+          from: from ? new Date(from).toDateString() : undefined, 
           to: to ? new Date(to).toDateString() : undefined,
+          count: logs.log.length,
           log: logs.log,
         });
       }
