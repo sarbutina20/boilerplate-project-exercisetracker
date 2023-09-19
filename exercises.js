@@ -47,7 +47,6 @@ class Exercises {
     }
   }
 
-  /*You can add from, to and limit parameters to a GET /api/users/:_id/logs request to retrieve part of the log of any user. from and to are dates in yyyy-mm-dd format. limit is an integer of how many logs to send back.*/
   async getExercises(req, res) {
     const id = req.params._id;
     const { from, to, limit } = req.query;
@@ -88,8 +87,8 @@ class Exercises {
           res.json({
             _id: user._id,
             username: user.username,
-            from: from ? new Date(from) : undefined,
-            to: to ? new Date(to) : undefined,
+            from: from ? new Date(from).toDateString() : undefined,
+            to: to ? new Date(to).toDateString() : undefined,
             count: logs.log.length,
             log: logs.log,
           });
