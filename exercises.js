@@ -23,7 +23,7 @@ class Exercises {
 
     try {
       const newExercise = new Exercise({
-        _id: id,
+        user_id: id,
         username: user.username,
         description,
         duration,
