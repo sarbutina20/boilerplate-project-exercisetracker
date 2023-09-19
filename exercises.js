@@ -31,13 +31,13 @@ class Exercises {
         date,
       });
 
-      const responseExercise = newExercise.map((exercise) => ({
-        _id: exercise.user_id,
-        username: exercise.username,
-        description: exercise.description,
-        duration: exercise.duration,
-        date: new Date(exercise.date).toDateString(),
-      }));
+      const responseExercise = {
+        _id: newExercise.user_id,
+        username: newExercise.username,
+        description: newExercise.description,
+        duration: newExercise.duration,
+        date: new Date(newExercise.date).toDateString(),
+      };
 
       newExercise.save();
 
