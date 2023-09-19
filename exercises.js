@@ -23,23 +23,23 @@ class Exercises {
 
     try {
       const newExercise = new Exercise({
-        _id: new mongoose.Types.ObjectId(),
-        user_id: id,
+        gen_id: new mongoose.Types.ObjectId(),
+        _id: id,
         username: user.username,
         description,
         duration,
         date,
       });
 
+      newExercise.save();
+
       const responseExercise = newExercise.map((exercise) => ({
-        _id: exercise.user_id,
+        _id: exercise._id,
         username: exercise.username,
         description: exercise.description,
         duration: exercise.duration,
         date: new Date(exercise.date).toDateString(),
       }));
-
-      newExercise.save();
 
       Logs.findById(id).then((logs) => {
         logs.count = logs.count + 1;

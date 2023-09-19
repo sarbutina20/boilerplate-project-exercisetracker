@@ -44,11 +44,11 @@ const UserScheme = new mongoose.Schema({
 const User = mongoose.model("User", UserScheme);
 
 const ExerciseScheme = new mongoose.Schema({
-  _id: {
+  gen_id: {
     type: String,
     required: true,
   },
-  user_id: {
+  _id: {
     type: String,
     required: true,
   },
