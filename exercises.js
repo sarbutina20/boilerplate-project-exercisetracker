@@ -23,6 +23,7 @@ class Exercises {
 
     try {
       const newExercise = new Exercise({
+        _id: mongoose.Types.ObjectId(),
         user_id: id,
         username: user.username,
         description,
