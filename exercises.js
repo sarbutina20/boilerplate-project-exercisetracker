@@ -31,6 +31,14 @@ class Exercises {
         date,
       });
 
+      const responseExercise = newExercise.map((exercise) => ({
+        _id: exercise.user_id,
+        username: exercise.username,
+        description: exercise.description,
+        duration: exercise.duration,
+        date: new Date(exercise.date).toDateString(),
+      }));
+
       newExercise.save();
 
       Logs.findById(id).then((logs) => {
@@ -42,7 +50,7 @@ class Exercises {
         });
         logs.save();
       });
-      res.json(newExercise);
+      res.json(responseExercise);
     } catch (err) {
       res.status(400).json("Error: " + err);
     }
